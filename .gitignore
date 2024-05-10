@@ -48,3 +48,9 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+tests_files/*
+tests.html
+lib/*
+data.csv
+visimpl.o

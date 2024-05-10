@@ -1,3 +1,8 @@
+// Не используется, возможно будет полезен потом
+
+#pragma once
+#include<iostream>
+
 struct Node{
   int nodeid;
   std::string fpath;
@@ -12,6 +17,5 @@ struct Infocollector
 {
   Node* node;
   Infocollector* next;
-  
   Infocollector();
 };

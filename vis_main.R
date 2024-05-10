@@ -1,14 +1,9 @@
-# constants
+# Константы
 TITLE = "Место на диске"
-#
-#library(Rcpp)
-# импортируем функцию на C++ 
-#sourceCpp('D:/projects/Rprojects/vis/rapi.cpp')
+DATA_PATH = "./data.csv"
+OUTPUT_PATH = "./tests.html"
 
-library <- dyn.load("D:/projects/Rprojects/vis/sourceCpp_11.dll")
-
-rapi_fun <- getNativeSymbolInfo("visargs", library)
-df <- visargs()
+openHTML <- function(x) browseURL(paste0('file://', file.path(getwd(), x)))
 
 visualize <- function(data){
   library(ggplot2)
@@ -16,26 +11,17 @@ visualize <- function(data){
   library(htmlwidgets)
   library(plotly)
   
-  
-  
-  # Создайте данные
-  #data <- data.frame(
-  #  category = keys ,
-  #  value = vals
-  #)
-  
-  
-  # Преобразуйте столбец value в числовой тип данных
-  data$value <- as.numeric(data$value)
-  
   # Создайте круговую диаграмму
   fig <- plot_ly(type='pie', labels=data$category, values=data$values, 
                  textinfo='label+percent',
                  insidetextorientation='radial')
   
   fig
-  
-  saveWidget(fig, file = "test.html")
+  saveWidget(fig, file = OUTPUT_PATH)
+  openHTML(OUTPUT_PATH)
 }
 
-visualize(df)
+data <- read.csv(DATA_PATH, header = FALSE, sep = ";")
+data$category = data$V1
+data$values = as.numeric(data$V2)
+visualize(data)
